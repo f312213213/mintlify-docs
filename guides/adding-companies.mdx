@@ -45,15 +45,26 @@ See [Supported platforms](/guides/supported-platforms) for the full list and lim
   </Step>
 </Steps>
 
-## When detection fails
+## When JobBeacon isn't sure
 
-If JobBeacon can't find a job board for the URL you pasted, it'll tell you. A few things to try:
+Sometimes JobBeacon finds more than one possible match for the URL you pasted — for example, a company name that maps to several plausible career boards. When that happens, you'll see a **"Is this the right company?"** prompt with a list of candidates.
+
+For each candidate you can:
+
+- Click **View career site** to open the board in a new tab and verify it's the right one.
+- Click **Yes, track this** to confirm — JobBeacon then runs the initial scan against that board.
+- Click **None of these** if nothing in the list is right. JobBeacon won't add anything.
+
+Candidates with no open roles are labeled so you can spot them quickly. Picking one is fine — JobBeacon will keep watching and notify you when roles appear.
+
+## If nothing matches
+
+If the prompt shows no usable options, or if JobBeacon can't suggest anything at all:
 
 - **Look at the page yourself.** Many companies link to their actual job board from the careers page (often labeled "View open roles" or similar). Click that link and paste the URL it goes to.
-- **Some pages render with JavaScript.** If the careers page is a single-page app with no static links, JobBeacon's scraper can miss the board. Direct URLs always work.
 - **The company name might not match the slug.** A company called "Acme Co." might be `acmeco`, `acme-co`, or `acme` on their job board. The direct-URL path always wins.
 
-If you've tried the direct URL and still see an error, [email support](mailto:support@jobbeacon.app) with the URL — we'll add detection if we can.
+If you've tried the direct URL and still see no candidates, [email support](mailto:support@jobbeacon.app) with the URL and we'll take a look.
 
 ## How many companies can I watch?
 
