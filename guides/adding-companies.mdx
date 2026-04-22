@@ -1,0 +1,64 @@
+---
+title: "Adding companies"
+description: "Paste a URL — JobBeacon detects the rest."
+---
+
+You add a company to your watchlist by pasting a URL. JobBeacon figures out which job board the company uses and starts scanning.
+
+## What URLs work
+
+Almost any URL pointing to a company's careers will do. JobBeacon tries two strategies:
+
+1. **Direct job-board URLs** are the fastest path. If you paste one of these, detection is instant:
+
+   - `https://job-boards.greenhouse.io/{company}` (Greenhouse)
+   - `https://jobs.ashbyhq.com/{company}` (Ashby)
+   - `https://jobs.lever.co/{company}` (Lever)
+   - `https://{company}.wd{N}.myworkdayjobs.com/...` (Workday)
+   - `https://{company}.eightfold.ai/...` or `https://apply.careers.{company}.com/...` (Eightfold)
+   - `https://careers.smartrecruiters.com/{company}` (SmartRecruiters)
+   - `https://{company}.bamboohr.com/careers/list` (BambooHR)
+
+2. **Company careers pages** also work. Paste something like `https://vercel.com/careers` and JobBeacon will:
+   - Scan the page for links to known job boards
+   - Probe likely board URLs derived from the company's domain
+
+See [Supported platforms](/guides/supported-platforms) for the full list and limitations.
+
+## Adding a company, step by step
+
+<Steps>
+  <Step title="Click Add company">
+    From the dashboard, click **Add company** in the top right.
+  </Step>
+  <Step title="Paste the URL">
+    Use the careers page URL or a direct job-board URL.
+  </Step>
+  <Step title="(Optional) Set initial filters">
+    You can add keywords and locations before the first scan. You can always change them later.
+  </Step>
+  <Step title="Watch the scan">
+    JobBeacon streams progress as it pulls every existing job. This usually takes a few seconds; very large boards (1000+ roles) can take up to a minute.
+  </Step>
+  <Step title="Done">
+    You're redirected to the company page. Existing jobs appear with a "—" instead of a "First seen" date. New roles after this point will be highlighted and emailed.
+  </Step>
+</Steps>
+
+## When detection fails
+
+If JobBeacon can't find a job board for the URL you pasted, it'll tell you. A few things to try:
+
+- **Look at the page yourself.** Many companies link to their actual job board from the careers page (often labeled "View open roles" or similar). Click that link and paste the URL it goes to.
+- **Some pages render with JavaScript.** If the careers page is a single-page app with no static links, JobBeacon's scraper can miss the board. Direct URLs always work.
+- **The company name might not match the slug.** A company called "Acme Co." might be `acmeco`, `acme-co`, or `acme` on their job board. The direct-URL path always wins.
+
+If you've tried the direct URL and still see an error, [email support](mailto:support@jobbeacon.app) with the URL — we'll add detection if we can.
+
+## How many companies can I watch?
+
+The free plan watches a handful of companies; Pro lifts that limit. See [Account & billing](/guides/account-billing) for current limits.
+
+## Removing a company
+
+Open the company page and click **Remove**. This deletes the company from your watchlist along with all the jobs JobBeacon has tracked for it. The jobs themselves stay live on the company's career page — JobBeacon just stops watching.

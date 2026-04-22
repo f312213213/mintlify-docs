@@ -1,97 +1,61 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "Welcome to JobBeacon"
+description: "Get notified the moment a job you actually want gets posted."
 ---
 
-## Setting up
+JobBeacon watches company career pages for you. Pick the companies you care about, tell us the roles and locations you want, and we'll email you when a matching job is posted — usually within an hour of it going live.
 
-Get your documentation site up and running in minutes.
+No more refreshing 20 career pages on a Sunday night.
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
-
-## Make it yours
-
-Design a docs site that looks great and empowers your users.
-
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Get your first alert set up in under 5 minutes.
   </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
+  <Card title="Add a company" icon="plus" href="/guides/adding-companies">
+    Paste any careers URL — we'll figure out the rest.
   </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
+  <Card title="Set up filters" icon="filter" href="/guides/filters">
+    Match on keywords and locations the way you actually search.
   </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
+  <Card title="Manage notifications" icon="bell" href="/guides/notifications">
+    Mute companies, pause everything, or fine-tune per company.
   </Card>
-</Columns>
+</CardGroup>
 
-## Create beautiful pages
+## How it works
 
-Everything you need to create world-class documentation.
+<Steps>
+  <Step title="Pick a company">
+    Paste a careers page URL. JobBeacon detects the job board automatically.
+  </Step>
+  <Step title="Set your filters">
+    Add keywords (like `senior backend` or `product designer`) and locations (like `Remote` or `Berlin`). Optional but recommended.
+  </Step>
+  <Step title="We watch every hour">
+    JobBeacon polls each company once an hour. Existing jobs are seeded silently — only *new* postings count as new.
+  </Step>
+  <Step title="You get an email">
+    When something matches, we send a single email with the new roles and a link to apply.
+  </Step>
+</Steps>
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
+## What makes JobBeacon different
 
-## Need inspiration?
+<CardGroup cols={2}>
+  <Card title="No noise" icon="volume-xmark">
+    You only hear about *new* postings that match your filters — not every job on the board.
+  </Card>
+  <Card title="Works on most boards" icon="globe">
+    Greenhouse, Ashby, Lever, Workday, Eightfold, SmartRecruiters, and BambooHR — covering thousands of companies.
+  </Card>
+  <Card title="One email per company" icon="envelope">
+    New roles at the same company are batched into one notification, not one email per job.
+  </Card>
+  <Card title="Yours to share" icon="share-nodes">
+    Share any job with a single link — recipients see a preview without needing an account.
+  </Card>
+</CardGroup>
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
+<Card title="Ready to start?" icon="arrow-right" href="/quickstart" horizontal>
+  Walk through the 5-minute setup.
 </Card>

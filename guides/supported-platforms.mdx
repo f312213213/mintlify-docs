@@ -1,0 +1,76 @@
+---
+title: "Supported platforms"
+description: "The job boards JobBeacon can watch — and what to expect from each."
+---
+
+JobBeacon supports the seven most common applicant tracking systems (ATS). Together they cover most of the companies you'd realistically want to watch.
+
+If a company uses one of these, JobBeacon can watch it. If they roll their own custom careers page, JobBeacon can't (yet).
+
+## Supported boards
+
+<CardGroup cols={2}>
+  <Card title="Greenhouse" icon="leaf">
+    Used by Stripe, Airbnb, Discord, and many YC companies.
+
+    URL pattern: `job-boards.greenhouse.io/{slug}`
+  </Card>
+  <Card title="Ashby" icon="bolt">
+    Common at newer startups. Fast and clean.
+
+    URL pattern: `jobs.ashbyhq.com/{slug}`
+  </Card>
+  <Card title="Lever" icon="lever">
+    Used by Netflix, Shopify, and many mid-sized companies.
+
+    URL pattern: `jobs.lever.co/{slug}`
+  </Card>
+  <Card title="Workday" icon="briefcase">
+    Used by most large enterprises (NVIDIA, Salesforce, etc.).
+
+    URL pattern: `{company}.wd{N}.myworkdayjobs.com/...`
+  </Card>
+  <Card title="Eightfold" icon="brain">
+    Used by Microsoft, Netflix, and other large employers.
+
+    URL pattern: `{company}.eightfold.ai/...`
+  </Card>
+  <Card title="SmartRecruiters" icon="user-tie">
+    Used by Visa, Bosch, and others.
+
+    URL pattern: `careers.smartrecruiters.com/{slug}`
+  </Card>
+  <Card title="BambooHR" icon="seedling">
+    Common at SMBs.
+
+    URL pattern: `{slug}.bamboohr.com/careers`
+  </Card>
+</CardGroup>
+
+## Coverage caveats
+
+Most boards work the same way, but a few have quirks worth knowing.
+
+### Workday
+
+Workday powers most large enterprises, and JobBeacon supports it — but with two caveats:
+
+- **Multi-location jobs show "N Locations"** in the listing. Workday's listing API doesn't include the actual location strings for jobs posted to multiple cities. JobBeacon shows "N Locations" in the table and lazy-loads the real list when you hover.
+- **Filters and unspecified locations.** Because Workday hides the per-location strings, location filters can't match those jobs directly. If you want them included, turn on **Include unspecified locations** in the company's filter settings.
+- **Very large boards are capped.** JobBeacon tracks the most recent 1,000 roles per Workday board. The company page shows "Monitoring the 1,000 most recent of N listings" when capped.
+
+### Eightfold
+
+Same listing cap as Workday: the most recent 1,000 roles per board. Most companies don't approach this.
+
+### Greenhouse, Ashby, Lever, SmartRecruiters, BambooHR
+
+No caps. JobBeacon pulls every active role on the board.
+
+## What JobBeacon does *not* watch
+
+- **Custom in-house career pages.** If a company's careers page isn't backed by one of the boards above, JobBeacon can't extract structured job data from it. We don't run a headless browser to scrape arbitrary HTML.
+- **LinkedIn, Indeed, or other aggregators.** JobBeacon goes to the source — the company itself.
+- **Internal job boards** (e.g., the ones gated behind a company login).
+
+If a company you care about isn't supported, [let us know](mailto:support@jobbeacon.app). We add platforms based on demand.

@@ -1,0 +1,93 @@
+---
+title: "Filters"
+description: "Match the jobs you actually want — and skip everything else."
+---
+
+Filters decide which new jobs trigger a notification. They're per-company: each company on your watchlist has its own keywords and locations.
+
+A job needs to pass **both** the keyword filter and the location filter to count as a match. An empty filter passes everything.
+
+## Keywords
+
+Keywords match against the job **title** only (not description or department).
+
+### Any vs all
+
+Each filter has a mode toggle:
+
+- **Match any** — the job matches if at least one keyword appears. Use for OR-style searches: `backend, infrastructure, platform`.
+- **Match all** — every keyword must appear. Use for narrowing: `senior, backend`.
+
+### How matching works
+
+Matching is case-insensitive and tolerant of word separators:
+
+| Filter      | Matches                                              |
+| ----------- | ---------------------------------------------------- |
+| `full-stack` | "Full Stack Engineer", "Fullstack Developer", "full-stack ops" |
+| `senior`    | "Senior Engineer", "SENIOR PRODUCT DESIGNER"         |
+| `staff`     | "Staff Engineer" (but also "Chief of Staff" — be specific!) |
+
+<Tip>
+  Multi-word keywords work as a single phrase. `product designer` only matches titles that contain those two words consecutively.
+</Tip>
+
+## Locations
+
+Locations match against the location field of the job. Same any/all toggle.
+
+### Multi-location jobs
+
+Many roles are posted in multiple cities (e.g., "London | Berlin | Remote"). Substring matching just works — a `Berlin` filter matches that job because `Berlin` appears in the location string.
+
+### Unspecified locations
+
+Some jobs have no location, "N/A", or — on Workday — "N Locations" without the real list. By default, these don't match a location filter.
+
+The **Include unspecified locations** toggle tells JobBeacon to *also* include those jobs when a location filter is active. Useful when:
+
+- You're watching Workday companies (where multi-location jobs always show "N Locations")
+- You don't want to miss roles where the recruiter forgot to fill in a location
+
+If you have *no* location filter set, this toggle has no effect — everything matches.
+
+## Examples
+
+<AccordionGroup>
+  <Accordion title="Senior backend roles, anywhere remote-friendly" icon="laptop">
+    - Keywords: `backend`, `infrastructure`, `platform` — **Match any**
+    - Locations: `Remote` — **Match any**
+    - Include unspecified locations: **off**
+  </Accordion>
+  <Accordion title="Any role, but only in Berlin" icon="building">
+    - Keywords: *(empty)*
+    - Locations: `Berlin` — **Match any**
+    - Include unspecified locations: **off**
+  </Accordion>
+  <Accordion title="Senior staff-level designer (very narrow)" icon="bullseye">
+    - Keywords: `designer`, `senior` — **Match all**
+    - Locations: *(empty)*
+  </Accordion>
+  <Accordion title="Watching a Workday company; don't miss multi-location" icon="briefcase">
+    - Keywords: `engineer` — **Match any**
+    - Locations: `Santa Clara`, `Remote` — **Match any**
+    - Include unspecified locations: **on**
+  </Accordion>
+</AccordionGroup>
+
+## Editing filters
+
+Open the company page → **Filters** card on the right (or below on mobile). Changes save when you click out of the field. They take effect on the next poll.
+
+<Note>
+  Changing filters does **not** re-evaluate jobs JobBeacon has already seen. New filters apply only to roles posted after the change.
+</Note>
+
+## Seeing what matched
+
+The dashboard shows two counts per company:
+
+- **● New** — roles posted in the last 24 hours
+- **N matched** — roles currently passing your filters
+
+If "matched" is much smaller than total, your filters are doing their job.

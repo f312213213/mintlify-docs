@@ -1,0 +1,77 @@
+---
+title: "Notifications"
+description: "How email alerts work and how to control them."
+---
+
+JobBeacon sends notifications by email. There's no app to install and no browser permission to grant — if you can receive mail, you can receive alerts.
+
+## How alerts work
+
+- Every company you watch is polled **once per hour**.
+- For each company, new jobs are matched against your filters.
+- If anything matches, you get **one email per company** listing all the new matching roles.
+- If nothing matches, no email — JobBeacon is quiet by design.
+
+The email comes from `notifications@jobbeacon.app`. Add it to your contacts to keep it out of spam.
+
+## What an alert looks like
+
+> **Subject:** New roles at Acme Corp
+>
+> ![JobBeacon header]
+>
+> **Senior Backend Engineer** · Remote
+> **Staff Platform Engineer** · Berlin
+>
+> [View 2 new roles at Acme Corp →]
+
+Click the title to go straight to the job posting. Click the CTA to open the company page in JobBeacon.
+
+## Two levels of control
+
+JobBeacon has two switches that work together.
+
+### Global toggle (Settings → Notifications)
+
+Your master switch. When **off**, JobBeacon stops sending you any email — even if individual companies have notifications on. Use this when you're on vacation or just want a break.
+
+### Per-company toggle (company page → Filters card, or Settings)
+
+Each company you watch has its own switch. Mute one without affecting the others.
+
+### How they interact
+
+| Global   | Company  | Result               |
+| -------- | -------- | -------------------- |
+| On       | On       | You get emails       |
+| On       | Off      | Muted for that company only |
+| Off      | On       | Muted (global wins)  |
+| Off      | Off      | Muted                |
+
+<Tip>
+  If your global toggle is off and you turn a single company **on**, JobBeacon automatically flips the global toggle on too. We assume turning a company on means you want to start hearing from JobBeacon again.
+</Tip>
+
+## Pausing without losing data
+
+Muting a company (global or per-company) only stops the **email**. JobBeacon keeps polling and tracking new jobs in the background. When you turn notifications back on, you'll still see the full history on the company page — you just won't get a backfill email for jobs posted while muted.
+
+## I'm not getting any emails
+
+Quick checklist:
+
+1. **Global toggle** in Settings is on?
+2. **Per-company toggle** is on for the company you expect to hear from?
+3. **Filters** aren't too narrow? Open the company page and check the "matched" count.
+4. **Inbox / spam.** Search your mail for `notifications@jobbeacon.app`.
+5. **Account email.** Make sure the email address Clerk has on file is one you actually check. You can change it from your profile.
+
+If none of that helps, [email support](mailto:support@jobbeacon.app).
+
+## I'm getting too many emails
+
+A few options:
+
+- **Tighten filters.** Add more specific keywords or locations. See [Filters](/guides/filters).
+- **Mute noisy companies.** Use the per-company toggle.
+- **Drop companies you no longer care about.** Open the company page and click **Remove**.
