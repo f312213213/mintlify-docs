@@ -25,6 +25,15 @@ Almost any URL pointing to a company's careers will do. JobBeacon tries two stra
 
 See [Supported platforms](/guides/supported-platforms) for the full list and limitations.
 
+<Note>
+  When you paste a direct Workable or BambooHR URL, JobBeacon checks the board exists before adding it:
+
+  - **Workable** (`apply.workable.com/{company}`) must currently list at least one open role. If the board has no jobs right now, JobBeacon rejects the URL with `This Workable URL does not expose any current jobs.` Wait until a role is posted, or paste the company's main careers page instead so JobBeacon can probe more broadly.
+  - **BambooHR** (`{company}.bamboohr.com/careers`) must respond as a real company job board. Misspelled subdomains are rejected with `This BambooHR URL does not appear to be a valid company job board.`
+
+  All other platforms (Greenhouse, Ashby, Lever, Workday, Eightfold, SmartRecruiters) are added without this check and can be tracked even when the board is empty.
+</Note>
+
 ## Adding a company, step by step
 
 <Steps>
