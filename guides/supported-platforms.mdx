@@ -1,76 +1,96 @@
 ---
 title: "Supported platforms"
-description: "The job boards JobBeacon can watch — and what to expect from each."
+description: "The hiring platforms JobBeacon can watch."
 ---
 
-JobBeacon supports the seven most common applicant tracking systems (ATS). Together they cover most of the companies you'd realistically want to watch.
+JobBeacon watches company career pages that are powered by supported hiring platforms.
 
-If a company uses one of these, JobBeacon can watch it. If they roll their own custom careers page, JobBeacon can't (yet).
+If a company uses a custom careers page with no supported job board behind it, JobBeacon usually cannot watch it.
 
 ## Supported boards
 
 <CardGroup cols={2}>
   <Card title="Greenhouse" icon="leaf">
-    Used by Stripe, Airbnb, Discord, and many YC companies.
-
-    URL pattern: `job-boards.greenhouse.io/{slug}`
+    URL patterns: `job-boards.greenhouse.io/{slug}`, `boards.greenhouse.io/{slug}`
   </Card>
   <Card title="Ashby" icon="bolt">
-    Common at newer startups. Fast and clean.
-
     URL pattern: `jobs.ashbyhq.com/{slug}`
   </Card>
-  <Card title="Lever" icon="lever">
-    Used by Netflix, Shopify, and many mid-sized companies.
-
+  <Card title="Lever" icon="briefcase">
     URL pattern: `jobs.lever.co/{slug}`
   </Card>
-  <Card title="Workday" icon="briefcase">
-    Used by most large enterprises (NVIDIA, Salesforce, etc.).
-
+  <Card title="Workday" icon="building">
     URL pattern: `{company}.wd{N}.myworkdayjobs.com/...`
   </Card>
   <Card title="Eightfold" icon="brain">
-    Used by Microsoft, Netflix, and other large employers.
-
-    URL pattern: `{company}.eightfold.ai/...`
+    URL patterns: `{company}.eightfold.ai/...`, `apply.careers.{company}.com/...`
   </Card>
   <Card title="SmartRecruiters" icon="user-tie">
-    Used by Visa, Bosch, and others.
-
-    URL pattern: `careers.smartrecruiters.com/{slug}`
+    URL patterns: `careers.smartrecruiters.com/{slug}`, `jobs.smartrecruiters.com/{slug}`
   </Card>
   <Card title="BambooHR" icon="seedling">
-    Common at SMBs.
-
     URL pattern: `{slug}.bamboohr.com/careers`
+  </Card>
+  <Card title="Workable" icon="check">
+    URL pattern: `apply.workable.com/{slug}`
+  </Card>
+  <Card title="ADP MyJobs" icon="id-card">
+    URL pattern: `myjobs.adp.com/{slug}/...`
+  </Card>
+  <Card title="Oracle Recruiting" icon="cloud">
+    URL pattern: `fa-...fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/.../sites/{site}`
+  </Card>
+  <Card title="iCIMS" icon="database">
+    URL patterns vary, often on an `icims.com` domain or branded careers domain.
+  </Card>
+  <Card title="SAP SuccessFactors" icon="sitemap">
+    URL pattern: often `jobs.{company}.com/search`
   </Card>
 </CardGroup>
 
-## Coverage caveats
+JobBeacon can also handle some companies that publish jobs across multiple Greenhouse boards.
 
-Most boards work the same way, but a few have quirks worth knowing.
+## Platform caveats
 
-### Workday
+Most supported boards work the same way: JobBeacon imports active jobs, stores title, location, and apply URL, then checks for new jobs on later scans.
 
-Workday powers most large enterprises, and JobBeacon supports it — but with two caveats:
+A few cases affect what you see.
 
-- **Multi-location jobs show "N Locations"** in the listing. Workday's listing API doesn't include the actual location strings for jobs posted to multiple cities. JobBeacon shows "N Locations" in the table and lazy-loads the real list when you hover.
-- **Filters and unspecified locations.** Because Workday hides the per-location strings, location filters can't match those jobs directly. If you want them included, turn on **Include unspecified locations** in the company's filter settings.
-- **Very large boards are capped.** JobBeacon tracks the most recent 1,000 roles per Workday board. The company page shows "Monitoring the 1,000 most recent of N listings" when capped.
+### Workday locations
 
-### Eightfold
+Some Workday jobs show a value like `5 Locations` in the job table.
 
-Same listing cap as Workday: the most recent 1,000 roles per board. Most companies don't approach this.
+Hover or focus the location cell to load the full location list when JobBeacon can fetch it.
 
-### Greenhouse, Ashby, Lever, SmartRecruiters, BambooHR
+Location filters cannot always match these Workday multi-location values directly. Turn on **Include unspecified locations** if you want those jobs included when a location filter is active.
 
-No caps. JobBeacon pulls every active role on the board.
+### Large boards
 
-## What JobBeacon does *not* watch
+Some large boards are capped to the most recent 1,000 jobs.
 
-- **Custom in-house career pages.** If a company's careers page isn't backed by one of the boards above, JobBeacon can't extract structured job data from it. We don't run a headless browser to scrape arbitrary HTML.
-- **LinkedIn, Indeed, or other aggregators.** JobBeacon goes to the source — the company itself.
-- **Internal job boards** (e.g., the ones gated behind a company login).
+If a cap applies, the company page shows a message like "Monitoring the 1,000 most recent of N listings."
 
-If a company you care about isn't supported, [let us know](mailto:support@jobbeacon.app). We add platforms based on demand.
+New postings are still detected because JobBeacon checks the most recent listings.
+
+### Companies with no open roles
+
+Some supported boards have zero open roles when you add them.
+
+You can still watch the company. JobBeacon will keep checking and show new roles when they appear.
+
+## What JobBeacon does not watch
+
+JobBeacon does not watch:
+
+- LinkedIn, Indeed, or other job aggregators
+- Internal job boards behind a company login
+- Custom in-house career pages with no supported hiring platform
+- PDFs, spreadsheets, or plain HTML listings with no structured job source
+
+JobBeacon focuses on the company's own posting source.
+
+## If a company is not supported
+
+If a company you care about is not supported, [email support](mailto:support@jobbeacon.app) with the careers URL.
+
+Include the exact URL you tried. If the company links to a separate "open roles" page, include that URL too.

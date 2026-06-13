@@ -1,72 +1,122 @@
 ---
 title: "Account & billing"
-description: "Plans, profile, theme, and how to upgrade or cancel."
+description: "Manage your account, plan, billing, appearance, and language."
 ---
 
 ## Your account
 
-JobBeacon uses [Clerk](https://clerk.com) for accounts. From your profile (avatar → **Manage account**) you can:
+JobBeacon uses [Clerk](https://clerk.com) for account management.
 
-- Change your email address
+From your avatar menu, use your account profile to:
+
+- Change your account email
 - Change your password
-- Add or remove sign-in methods (email, Google)
+- Add or remove sign-in methods
 - Enable two-factor authentication
 - Delete your account
 
-Notification emails always go to the **primary email** on your account. If you change it, the next alert lands in the new inbox.
+Email notifications use your notification email override when you set one. Otherwise, they use your account email.
 
-## Theme
+## Notification email
 
-JobBeacon has light and dark modes. Toggle from the avatar menu — your choice is saved to your account, so it follows you across devices.
+Use **Settings** -> **Notification Email** if alerts should go to a different email address than your account email.
+
+Leave the field empty to use your account email.
+
+## Appearance and language
+
+In **Settings**, you can choose:
+
+- Light mode
+- Dark mode
+- System mode
+- Language
+
+Your choices follow you across devices.
 
 ## Plans
 
 <CardGroup cols={2}>
   <Card title="Free" icon="seedling">
-    Watch a small handful of companies, set filters, and receive timely notifications.
+    Watch up to 5 companies with daily checks, daily email per company, 2 keywords, and 1 location per company.
   </Card>
   <Card title="Pro" icon="rocket">
-    Watch many more companies. Same checks, same filters, same emails.
+    Watch unlimited companies with unlimited filters, faster checks, immediate email, outbound webhooks, and manual polling.
   </Card>
 </CardGroup>
 
-Up-to-date limits and pricing live on the [pricing page](https://jobbeacon.app/#pricing).
+Current pricing lives on the [pricing page](https://jobbeacon.app/#pricing).
 
-## Upgrading
+## Plan differences
+
+| Feature | Free | Pro |
+| ------- | ---- | --- |
+| Watched companies | Up to 5 | Unlimited |
+| Job checks | At least daily | At least every 30 minutes |
+| Email delivery | Daily per company | Immediate |
+| Keywords per company | 2 | Unlimited |
+| Locations per company | 1 | Unlimited |
+| Outbound webhooks | Not included | Included |
+| Manual **Poll Now** after setup | Not included | Included |
+
+## Upgrade to Pro
 
 <Steps>
   <Step title="Open Settings">
-    Click your avatar → **Settings** → **Billing**.
+    Click your avatar, then click **Settings**.
   </Step>
-  <Step title="Pick a plan">
-    Click **Upgrade** next to the plan you want. JobBeacon redirects you to Stripe Checkout.
+  <Step title="Open Plan & Billing">
+    Find the **Plan & Billing** card.
   </Step>
-  <Step title="Enter payment">
-    Stripe handles payment. You're redirected back to JobBeacon when done.
+  <Step title="Choose billing interval">
+    Choose monthly or quarterly billing.
   </Step>
-  <Step title="Done">
-    Your new limits apply immediately.
+  <Step title="Click Upgrade to Pro">
+    JobBeacon opens Stripe Checkout.
+  </Step>
+  <Step title="Finish checkout">
+    Stripe handles payment and returns you to JobBeacon.
   </Step>
 </Steps>
 
-## Managing your subscription
+Your Pro limits apply after checkout completes.
 
-From **Settings → Billing**, click **Manage subscription**. This opens Stripe's customer portal where you can:
+## Manage your subscription
+
+From **Settings** -> **Plan & Billing**, click **Manage subscription**.
+
+Stripe opens its customer portal, where you can:
 
 - Update your payment method
 - Download invoices
-- Switch plans
-- Cancel
+- Cancel your subscription
 
-Cancellation takes effect at the end of the current billing period — you keep Pro features until then.
+If you are already on Pro, you can switch between monthly and quarterly billing from **Plan & Billing** when the subscription is active.
 
-## Deleting your account
+Cancellation takes effect at the end of the current billing period. You keep Pro access until then.
 
-From your profile (avatar → **Manage account**), scroll to the bottom and click **Delete account**. This removes:
+## If Pro ends
 
-- Your watched companies
-- Your filters and notification preferences
-- Your job history
-- Your share links
+If your account moves from Pro to Free:
 
-If you have an active Pro subscription, cancel it first from **Settings → Billing**.
+- Company and filter limits apply again.
+- Manual **Poll Now** is no longer available after setup.
+- Outbound webhook delivery pauses.
+- Your saved webhook endpoint and signing secret stay saved.
+
+If you are over a Free limit, update your watchlist or filters before adding more companies or filters.
+
+## Delete your account
+
+Account deletion permanently removes:
+
+- Watched companies
+- Filters
+- Notification preferences
+- Job history
+- Manual share links
+- Webhook settings and delivery history
+
+If you have an active Pro subscription, JobBeacon attempts to cancel it and refund the unused part of the current billing period during account deletion.
+
+This cannot be undone.

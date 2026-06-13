@@ -20,11 +20,12 @@ The site is served at `http://localhost:3000`.
 
 ## Structure
 
-- `docs.json` — site config (nav, branding, colors)
-- `index.mdx` — landing page
-- `quickstart.mdx` — 5-minute onboarding walkthrough
-- `guides/` — product guides (adding companies, filters, notifications, sharing, billing, FAQ)
-- `logo/`, `images/`, `favicon.svg` — brand assets
+- `docs.json` - site config (nav, branding, colors)
+- `index.mdx` - landing page
+- `quickstart.mdx` - onboarding walkthrough
+- `webhooks.mdx` - Pro outbound webhook reference
+- `guides/` - product guides (dashboard, adding companies, filters, notifications, sharing, billing, FAQ)
+- `logo/`, `images/`, `favicon.svg` - brand assets
 
 ## Writing tips
 
@@ -35,7 +36,7 @@ The site is served at `http://localhost:3000`.
 
 ## Publishing
 
-The Mintlify GitHub app deploys the default branch automatically — push to `main` and the site updates within a minute.
+The Mintlify GitHub app deploys the default branch automatically. Push to `main` and the site updates within a minute.
 
 ## Troubleshooting
 

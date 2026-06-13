@@ -17,7 +17,8 @@
             "group": "Getting started",
             "pages": [
               "index",
-              "quickstart"
+              "quickstart",
+              "guides/dashboard"
             ]
           },
           {
@@ -32,6 +33,7 @@
             "group": "Staying notified",
             "pages": [
               "guides/notifications",
+              "webhooks",
               "guides/sharing"
             ]
           },

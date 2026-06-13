@@ -1,44 +1,90 @@
 ---
 title: "Sharing jobs"
-description: "Send a job to a friend with a single link."
+description: "Share job previews, links, images, and view history."
 ---
 
-Found a role that's perfect for someone you know? You can share it without making them sign up for JobBeacon.
+You can share a job without making the recipient sign up for JobBeacon.
 
-## How to share
+Shared jobs open on a public JobBeacon preview page with a link to the original posting.
+
+## Share from a company page
 
 <Steps>
   <Step title="Open the company page">
-    Find the role in the jobs table.
+    Find the job in the matched jobs table.
   </Step>
-  <Step title="Click the share icon">
-    On every job row there's a share button.
-
-    - **On desktop**, JobBeacon copies the share link to your clipboard. A small tooltip confirms it.
-    - **On mobile**, the native share sheet opens so you can send via Messages, Mail, etc.
+  <Step title="Open the share menu">
+    Click the share icon on the job row.
   </Step>
-  <Step title="Send the link">
-    The link looks like `https://jobbeacon.app/share/{token}`. The recipient doesn't need an account — they can open it directly.
+  <Step title="Choose an action">
+    Pick the share action you want.
   </Step>
 </Steps>
 
+Available actions:
+
+- **Share link** opens the native share sheet on supported mobile browsers, or copies the link on desktop.
+- **Copy link** copies the public share URL.
+- **Copy image** copies the generated share image when your browser supports it. Otherwise JobBeacon copies the image link.
+- **Download image** downloads the generated share image.
+
+The share link looks like:
+
+```text
+https://jobbeacon.app/share/{token}
+```
+
 ## What the recipient sees
 
-A clean public page with:
+The public share page shows:
 
-- The job title, company, and location
-- A direct link to apply on the company's career site
-- A preview image when the link is pasted into Slack, iMessage, Twitter, etc.
+- The job title
+- The company
+- The location when available
+- A direct link to the original posting
+- A preview image for apps that unfurl links
 
-No JobBeacon account is required. The recipient never sees your filters, your other watched companies, or any account info.
+The recipient does not need a JobBeacon account.
 
-## Privacy
+They cannot see your watchlist, filters, email settings, or account details.
 
-- Share links are unguessable random tokens. Only people with the link can see the page.
-- You can share the same job multiple times — JobBeacon reuses the same link rather than generating a new one.
-- The shared page reflects the job at the time of viewing. If the company takes the job down, the page will say so.
+## Share history
 
-## Limitations
+Open your avatar menu and click **Share history** to review links you created from the app.
 
-- There's no way to *unshare* a link today. If you need a link revoked, [email support](mailto:support@jobbeacon.app).
-- The recipient sees only the job, not your watchlist or filters.
+Share history shows:
+
+- Total shared jobs
+- Total views
+- Jobs that no longer appear on the company board
+- When each link was shared
+- When each link was last viewed
+
+From share history, you can copy the link again, copy or download the share image, open the share page, or open the original posting if it is still active.
+
+Webhook-generated share links are not shown in share history.
+
+## View counts
+
+JobBeacon counts likely human browser views.
+
+Link previews, bots, and repeated views from the same visitor in a short window may not increase the count.
+
+Use view counts as a directional signal, not an exact analytics report.
+
+## When a job is no longer active
+
+If the company removes a job from its board, JobBeacon keeps the share record.
+
+The public share page says the job is no longer valid, and share history marks it as **No longer valid**.
+
+The original posting link is disabled in share history when JobBeacon knows the job is no longer active.
+
+## Privacy and limitations
+
+- Share links use unguessable tokens.
+- Anyone with the link can open the public share page.
+- JobBeacon reuses the same manual share link when you share the same job again.
+- There is no self-serve way to revoke a share link today.
+
+If you need a link revoked, [email support](mailto:support@jobbeacon.app).

@@ -1,93 +1,157 @@
 ---
 title: "Filters"
-description: "Match the jobs you actually want — and skip everything else."
+description: "Use keywords and locations to decide which jobs match."
 ---
 
-Filters decide which new jobs trigger a notification. They're per-company: each company on your watchlist has its own keywords and locations.
+Filters decide which jobs count as matches for a company.
 
-A job needs to pass **both** the keyword filter and the location filter to count as a match. An empty filter passes everything.
+Each company has its own filters. A job must pass both the keyword filter and the location filter to count as a match.
+
+An empty filter matches everything.
+
+## Plan limits
+
+Free accounts can use up to 2 keywords and 1 location per company.
+
+Pro accounts can use unlimited keywords and locations.
 
 ## Keywords
 
-Keywords match against the job **title** only (not description or department).
+Keywords match against the job title.
+
+They do not match the job description, department, or requirements.
 
 ### Any vs all
 
-Each filter has a mode toggle:
+Choose one mode:
 
-- **Match any** — the job matches if at least one keyword appears. Use for OR-style searches: `backend, infrastructure, platform`.
-- **Match all** — every keyword must appear. Use for narrowing: `senior, backend`.
+- **Any** matches when at least one keyword appears.
+- **All** matches only when every keyword appears.
 
-### How matching works
+Use **Any** for related role families:
 
-Matching is case-insensitive and tolerant of word separators:
+```text
+backend, infrastructure, platform
+```
 
-| Filter      | Matches                                              |
-| ----------- | ---------------------------------------------------- |
+Use **All** for narrowing:
+
+```text
+senior, backend
+```
+
+### Keyword matching
+
+Keyword matching is case-insensitive.
+
+JobBeacon also ignores common separators, so these can match each other:
+
+| Filter | Matches |
+| ------ | ------- |
 | `full-stack` | "Full Stack Engineer", "Fullstack Developer", "full-stack ops" |
-| `senior`    | "Senior Engineer", "SENIOR PRODUCT DESIGNER"         |
-| `staff`     | "Staff Engineer" (but also "Chief of Staff" — be specific!) |
+| `senior` | "Senior Engineer", "SENIOR PRODUCT DESIGNER" |
+| `product designer` | "Product Designer", "Senior Product Designer" |
 
-<Tip>
-  Multi-word keywords work as a single phrase. `product designer` only matches titles that contain those two words consecutively.
-</Tip>
+Multi-word keywords match as a phrase. `product designer` does not match "Product Manager, Designer Tools."
 
 ## Locations
 
-Locations match against the location field of the job. Same any/all toggle.
+Locations match against the job's location field.
 
-### Multi-location jobs
+They use the same **Any** and **All** modes as keywords.
 
-Many roles are posted in multiple cities (e.g., "London | Berlin | Remote"). Substring matching just works — a `Berlin` filter matches that job because `Berlin` appears in the location string.
+Use **Any** when any listed location is acceptable:
 
-### Unspecified locations
+```text
+Remote, Berlin, New York
+```
 
-Some jobs have no location, "N/A", or — on Workday — "N Locations" without the real list. By default, these don't match a location filter.
+Use **All** only when the job location must contain every location value. This is uncommon, but it can help with location strings that contain both city and region.
 
-The **Include unspecified locations** toggle tells JobBeacon to *also* include those jobs when a location filter is active. Useful when:
+## Multi-location jobs
 
-- You're watching Workday companies (where multi-location jobs always show "N Locations")
-- You don't want to miss roles where the recruiter forgot to fill in a location
+Many jobs list several locations, such as:
 
-If you have *no* location filter set, this toggle has no effect — everything matches.
+```text
+London | Berlin | Remote
+```
+
+A `Berlin` filter matches that job because `Berlin` appears in the location list.
+
+In job tables, JobBeacon may condense long location lists. Hover or focus the location cell to see the full list.
+
+## Unspecified locations
+
+Some jobs do not expose a specific location.
+
+Examples include:
+
+- Empty location fields
+- `N/A`
+- `Unspecified`
+- Workday values like `5 Locations`
+
+By default, these do not match a location filter.
+
+Turn on **Include unspecified locations** when you want those jobs included while a location filter is active.
+
+If you have no location filter, this setting has no effect.
 
 ## Examples
 
 <AccordionGroup>
-  <Accordion title="Senior backend roles, anywhere remote-friendly" icon="laptop">
-    - Keywords: `backend`, `infrastructure`, `platform` — **Match any**
-    - Locations: `Remote` — **Match any**
-    - Include unspecified locations: **off**
+  <Accordion title="Senior backend roles in remote-friendly locations" icon="laptop">
+    - Keywords: `backend`, `infrastructure`, `platform`
+    - Keyword mode: **Any**
+    - Locations: `Remote`
+    - Location mode: **Any**
+    - Include unspecified locations: **Off**
   </Accordion>
-  <Accordion title="Any role, but only in Berlin" icon="building">
-    - Keywords: *(empty)*
-    - Locations: `Berlin` — **Match any**
-    - Include unspecified locations: **off**
+  <Accordion title="Any role in Berlin" icon="building">
+    - Keywords: empty
+    - Locations: `Berlin`
+    - Location mode: **Any**
+    - Include unspecified locations: **Off**
   </Accordion>
-  <Accordion title="Senior staff-level designer (very narrow)" icon="bullseye">
-    - Keywords: `designer`, `senior` — **Match all**
-    - Locations: *(empty)*
+  <Accordion title="Senior product design roles" icon="bullseye">
+    - Keywords: `senior`, `product designer`
+    - Keyword mode: **All**
+    - Locations: empty
   </Accordion>
-  <Accordion title="Watching a Workday company; don't miss multi-location" icon="briefcase">
-    - Keywords: `engineer` — **Match any**
-    - Locations: `Santa Clara`, `Remote` — **Match any**
-    - Include unspecified locations: **on**
+  <Accordion title="Workday company with hidden multi-location roles" icon="briefcase">
+    - Keywords: `engineer`
+    - Keyword mode: **Any**
+    - Locations: `Remote`, `Santa Clara`
+    - Location mode: **Any**
+    - Include unspecified locations: **On**
   </Accordion>
 </AccordionGroup>
 
-## Editing filters
+## Edit filters
 
-Open the company page → **Filters** card on the right (or below on mobile). Changes save when you click out of the field. They take effect on the next poll.
+<Steps>
+  <Step title="Open the company page">
+    Click the company from the dashboard.
+  </Step>
+  <Step title="Open the Filters panel">
+    The filters panel appears beside the jobs table on desktop and below it on smaller screens.
+  </Step>
+  <Step title="Edit keywords or locations">
+    Add or remove values and choose **Any** or **All**.
+  </Step>
+  <Step title="Click Save">
+    Save the section you changed.
+  </Step>
+</Steps>
 
-<Note>
-  Changing filters does **not** re-evaluate jobs JobBeacon has already seen. New filters apply only to roles posted after the change.
-</Note>
+Changing filters updates the visible matched count and matched jobs list.
 
-## Seeing what matched
+It does not send email or webhook backfill for jobs JobBeacon already saw.
 
-The dashboard shows two counts per company:
+## See what matched
 
-- **● New** — roles posted in the last 24 hours
-- **N matched** — roles currently passing your filters
+The dashboard shows a matched job count for each company.
 
-If "matched" is much smaller than total, your filters are doing their job.
+Open the **Jobs** view to see matched jobs across all companies.
+
+Open a company page to see that company's matched jobs, search by title, and share or open postings.

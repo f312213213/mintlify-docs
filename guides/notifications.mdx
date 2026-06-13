@@ -1,77 +1,104 @@
 ---
-title: "Notifications"
+title: "Email notifications"
 description: "How email alerts work and how to control them."
 ---
 
-JobBeacon sends notifications by email. There's no app to install and no browser permission to grant — if you can receive mail, you can receive alerts.
+JobBeacon sends notifications by email.
 
-## How alerts work
+Webhook delivery is separate. See [Webhooks](/webhooks) if you want matched jobs sent to another tool.
 
-- Every company you watch is checked on a regular schedule.
-- For each company, new jobs are matched against your filters.
-- If anything matches, you get **one email per company** listing all the new matching roles.
-- If nothing matches, no email — JobBeacon is quiet by design.
+## How email alerts work
 
-The email comes from `notifications@jobbeacon.app`. Add it to your contacts to keep it out of spam.
+- JobBeacon checks each company on a schedule.
+- New jobs are compared with that company's filters.
+- If one or more jobs match, JobBeacon sends one email for that company.
+- If nothing matches, no email is sent.
 
-## What an alert looks like
+Free accounts receive at most one email per company per day.
 
-> **Subject:** New roles at Acme Corp
->
-> ![JobBeacon header]
->
-> **Senior Backend Engineer** · Remote
-> **Staff Platform Engineer** · Berlin
->
-> [View 2 new roles at Acme Corp →]
+Pro accounts receive email immediately when matching jobs are found.
 
-Click the title to go straight to the job posting. Click the CTA to open the company page in JobBeacon.
+The email usually comes from `notifications@updates.jobbeacon.app`.
 
-## Two levels of control
+## What an email includes
 
-JobBeacon has two switches that work together.
+An email includes:
 
-### Global toggle (Settings → Notifications)
+- The company name
+- The matching role titles
+- Job locations when available
+- Links to the original job postings
+- A link back to the company page in JobBeacon
 
-Your master switch. When **off**, JobBeacon stops sending you any email — even if individual companies have notifications on. Use this when you're on vacation or just want a break.
+If several new roles match at the same company, they are grouped into one email.
 
-### Per-company toggle (company page → Filters card, or Settings)
+## Email address
 
-Each company you watch has its own switch. Mute one without affecting the others.
+By default, JobBeacon sends email to your account email.
 
-### How they interact
+To use a different email address:
 
-| Global   | Company  | Result               |
-| -------- | -------- | -------------------- |
-| On       | On       | You get emails       |
-| On       | Off      | Muted for that company only |
-| Off      | On       | Muted (global wins)  |
-| Off      | Off      | Muted                |
+<Steps>
+  <Step title="Open Settings">
+    Click your avatar, then click **Settings**.
+  </Step>
+  <Step title="Find Notification Email">
+    Enter the email address you want to receive alerts.
+  </Step>
+  <Step title="Save">
+    Click **Save**.
+  </Step>
+</Steps>
 
-<Tip>
-  If your global toggle is off and you turn a single company **on**, JobBeacon automatically flips the global toggle on too. We assume turning a company on means you want to start hearing from JobBeacon again.
-</Tip>
+Leave the field empty to use your account email again.
 
-## Pausing without losing data
+## Control email globally
 
-Muting a company (global or per-company) only stops the **email**. JobBeacon keeps polling and tracking new jobs in the background. When you turn notifications back on, you'll still see the full history on the company page — you just won't get a backfill email for jobs posted while muted.
+Open **Settings** and use the **Email Notifications** switch.
 
-## I'm not getting any emails
+When you turn the main switch off, JobBeacon pauses email for all companies.
 
-Quick checklist:
+When you turn it on, JobBeacon turns email back on for your companies.
 
-1. **Global toggle** in Settings is on?
-2. **Per-company toggle** is on for the company you expect to hear from?
-3. **Filters** aren't too narrow? Open the company page and check the "matched" count.
-4. **Inbox / spam.** Search your mail for `notifications@jobbeacon.app`.
-5. **Account email.** Make sure the email address Clerk has on file is one you actually check. You can change it from your profile.
+You can also use **Mute all** and **Unmute all** in the same card when you have several companies.
+
+## Control email per company
+
+You can mute one company without muting the rest.
+
+Use either place:
+
+- Company page: use the email notification switch in the **Filters** panel.
+- Settings: use the company switch in **Email Notifications**.
+
+If global email is off and you turn one company on, JobBeacon turns global email back on too.
+
+## Pausing email does not stop tracking
+
+Muting email does not stop JobBeacon from checking companies.
+
+New jobs can still appear in your dashboard while email is muted.
+
+When you turn email back on, JobBeacon does not send a backfill email for jobs found while muted.
+
+## I am not getting email
+
+Check these first:
+
+1. **Email Notifications** in Settings is active.
+2. The company is active in **Email Notifications** or on the company page.
+3. Your filters are not too narrow.
+4. Your notification email is correct.
+5. Search spam or promotions for `updates.jobbeacon.app`.
+6. If you are on Free, check whether an email for that company was already sent in the last day.
 
 If none of that helps, [email support](mailto:support@jobbeacon.app).
 
-## I'm getting too many emails
+## I am getting too much email
 
-A few options:
+Try these:
 
-- **Tighten filters.** Add more specific keywords or locations. See [Filters](/guides/filters).
-- **Mute noisy companies.** Use the per-company toggle.
-- **Drop companies you no longer care about.** Open the company page and click **Remove**.
+- Tighten your filters with more specific keywords or locations.
+- Mute noisy companies.
+- Remove companies you no longer care about.
+- Upgrade to Pro only if you want faster delivery, not less email.

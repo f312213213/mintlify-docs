@@ -1,0 +1,216 @@
+---
+title: "Webhooks"
+description: "Send newly matched jobs to your own tools with signed webhook delivery."
+---
+
+Outbound webhooks are a Pro feature. They send one signed `POST` request for each newly matched job.
+
+Use webhooks when you want matched jobs to flow into tools like Slack, Notion, Airtable, Zapier, Make, or your own workflow.
+
+<Note>
+  Email notification settings do not control webhook delivery. Use the webhook **Active** switch to pause or resume webhooks.
+</Note>
+
+## What triggers a webhook
+
+JobBeacon sends a `job.matched` webhook when all of these are true:
+
+- You are on Pro.
+- You have saved an active webhook endpoint.
+- JobBeacon finds a new job after the company's first scan.
+- The job matches that company's keyword and location filters.
+
+The first scan seeds existing jobs. Seed jobs do not send webhook delivery.
+
+If a job does not match your filters when JobBeacon first sees it, changing filters later does not send a backfill webhook for that old job.
+
+## Set up a webhook
+
+<Steps>
+  <Step title="Open Settings">
+    Click your avatar, then click **Settings**.
+  </Step>
+  <Step title="Find Outbound Webhook">
+    In **Outbound Webhook**, enter your **Endpoint URL**.
+  </Step>
+  <Step title="Save the endpoint">
+    Click **Save**. The endpoint must use HTTPS.
+  </Step>
+  <Step title="Copy the signing secret">
+    Copy the **Signing secret** when it appears. JobBeacon only shows the full secret once.
+  </Step>
+  <Step title="Send a test">
+    Click **Send test** to queue a `webhook.test` delivery.
+  </Step>
+</Steps>
+
+Your account can have one webhook endpoint.
+
+## Endpoint requirements
+
+Your endpoint must:
+
+- Use `https://`
+- Be reachable from the public internet
+- Return a `2xx` response when delivery succeeds
+- Not use credentials in the URL
+
+JobBeacon blocks localhost, private network addresses, and test-only hostnames.
+
+## Request headers
+
+Each delivery includes these headers:
+
+| Header | Value |
+| ------ | ----- |
+| `Content-Type` | `application/json` |
+| `User-Agent` | `JobBeacon-Webhooks/1.0` |
+| `JobBeacon-Event-Id` | The event ID, such as `evt_...` |
+| `JobBeacon-Timestamp` | Unix timestamp in seconds |
+| `JobBeacon-Signature` | HMAC signature, such as `v1=...` |
+| `JobBeacon-Webhook-Version` | `2026-06-12` |
+| `Idempotency-Key` | Stable dedupe key for the event |
+
+Use `JobBeacon-Event-Id` or `Idempotency-Key` to ignore duplicate deliveries.
+
+## Verify the signature
+
+JobBeacon signs the raw JSON body with your signing secret.
+
+The signed input is:
+
+```text
+{timestamp}.{rawBody}
+```
+
+The signature is an HMAC SHA-256 hex digest with a `v1=` prefix.
+
+Example in Node.js:
+
+```js
+import crypto from "node:crypto";
+
+export function verifyJobBeaconWebhook({
+  rawBody,
+  timestamp,
+  signature,
+  secret,
+}) {
+  const expected =
+    "v1=" +
+    crypto
+      .createHmac("sha256", secret)
+      .update(`${timestamp}.${rawBody}`)
+      .digest("hex");
+
+  const signatureBuffer = Buffer.from(signature);
+  const expectedBuffer = Buffer.from(expected);
+
+  return (
+    signatureBuffer.length === expectedBuffer.length &&
+    crypto.timingSafeEqual(signatureBuffer, expectedBuffer)
+  );
+}
+```
+
+Reject requests with an old `JobBeacon-Timestamp`. A 5-minute window is a common choice.
+
+## `job.matched` payload
+
+```json
+{
+  "event": "job.matched",
+  "event_id": "evt_abc123",
+  "api_version": "2026-06-12",
+  "created_at": "2026-06-13T09:15:00.000Z",
+  "dedupe_key": "job.matched:user_123:job_123",
+  "job": {
+    "id": "job_123",
+    "external_id": "456789",
+    "title": "Senior Backend Engineer",
+    "location": "Remote",
+    "url": "https://company.example/careers/job/456789",
+    "first_seen_at": "2026-06-13T09:14:30.000Z",
+    "last_seen_at": "2026-06-13T09:14:30.000Z",
+    "is_active": true
+  },
+  "company": {
+    "id": "company_123",
+    "name": "Acme",
+    "slug": "acme"
+  },
+  "share": {
+    "token": "share_token",
+    "url": "https://jobbeacon.app/share/share_token",
+    "image_url": "https://jobbeacon.app/share/share_token/opengraph-image",
+    "twitter_image_url": "https://jobbeacon.app/share/share_token/twitter-image",
+    "sharer_name": "alex"
+  }
+}
+```
+
+The `share.url` is a public JobBeacon preview for the job. The image URLs are stable share images you can attach in tools that support previews.
+
+## Test payload
+
+Click **Send test** to queue a `webhook.test` event.
+
+The test payload uses the same shape as a matched job payload and includes:
+
+```json
+{
+  "event": "webhook.test",
+  "test": true
+}
+```
+
+You can send one test per minute, up to 25 tests in 24 hours.
+
+## Delivery behavior
+
+JobBeacon waits up to 10 seconds for your endpoint.
+
+A delivery is marked **delivered** when your endpoint returns any `2xx` status.
+
+JobBeacon retries temporary failures, including network errors, `408`, `409`, `425`, `429`, and `5xx` responses.
+
+Retries use backoff and stop after 5 attempts. Other failures are marked **failed**.
+
+JobBeacon follows up to 3 redirects, as long as the final URL still passes endpoint validation.
+
+## Delivery history
+
+The **Recent deliveries** table in Settings shows the latest webhook deliveries.
+
+Delivery history is kept for 30 days.
+
+Common statuses:
+
+| Status | Meaning |
+| ------ | ------- |
+| `queued` | Waiting to be sent |
+| `sending` | Delivery is in progress |
+| `delivered` | Your endpoint returned `2xx` |
+| `failed` | Delivery will not be retried |
+| `skipped` | Delivery was skipped, usually because Pro or the webhook was disabled |
+
+## Rotate or pause webhooks
+
+Click **Rotate secret** if your signing secret may have been exposed.
+
+After rotating, update your endpoint to use the new secret.
+
+Use the **Active** switch to pause delivery without deleting your endpoint.
+
+If your account moves from Pro to Free, webhook delivery pauses. Your endpoint and signing secret stay saved in case you reactivate Pro later.
+
+## Troubleshooting
+
+If a webhook does not arrive:
+
+1. Check that your account is on Pro.
+2. Check that the webhook is **Active**.
+3. Check that the endpoint uses HTTPS and is publicly reachable.
+4. Click **Send test**.
+5. Review **Recent deliveries** for response status and error details.
+6. Confirm the job was new and matched your filters when JobBeacon first saw it.

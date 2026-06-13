@@ -1,50 +1,117 @@
 ---
 title: "FAQ"
-description: "Quick answers to the questions we hear most."
+description: "Quick answers to common JobBeacon questions."
 ---
 
 <AccordionGroup>
   <Accordion title="How often does JobBeacon check for new jobs?" icon="clock">
-    JobBeacon checks every company on a regular schedule throughout the day. You'll typically hear about a new role shortly after it's posted.
+    Free companies are checked at least daily. Pro companies are checked at least every 30 minutes.
+
+    Pro users can also click **Poll Now** on a company page to check immediately.
   </Accordion>
 
-  <Accordion title="Why didn't I get an email about a job I saw on the company site?" icon="circle-question">
-    Three usual suspects:
+  <Accordion title="Why did jobs appear without an email?" icon="envelope">
+    The most common reasons are:
 
-    1. **Filters didn't match.** Open the company in JobBeacon and check the matched count. Try loosening keywords or locations.
-    2. **The job was already there when you added the company.** First-scan jobs are marked as *seed* and don't trigger emails — only roles posted *after* you started watching.
-    3. **Notifications are muted** (globally or for that company). Check **Settings**.
+    1. The jobs were already live during the first scan. Seed jobs do not send email.
+    2. Email was muted globally or for that company.
+    3. Your account is on Free and an email for that company was already sent in the last day.
+    4. The jobs did not match your filters when JobBeacon first saw them.
+  </Accordion>
+
+  <Accordion title="Why did a job I expected not match?" icon="filter">
+    Check the company's filters.
+
+    Keywords match job titles only. Locations match the job location field.
+
+    A job must pass both filters. If a filter is empty, that filter passes everything.
   </Accordion>
 
   <Accordion title="Why does Workday show 'N Locations' instead of real cities?" icon="briefcase">
-    Workday's job listing API doesn't return per-location strings for multi-location postings. JobBeacon shows "N Locations" in the table and lazy-loads the real list when you hover the cell. For filter matching, turn on **Include unspecified locations**.
+    Some Workday listings do not expose all locations in the main job list.
+
+    JobBeacon shows values like `5 Locations` and loads the full list when you hover or focus the location cell when possible.
+
+    If you use location filters, turn on **Include unspecified locations** to include these jobs.
   </Accordion>
 
-  <Accordion title="Can I get notifications somewhere other than email?" icon="bell">
-    Email only, today. Slack and webhook delivery are on the roadmap — let us know if you'd find them useful.
+  <Accordion title="Can I send matched jobs to Slack, Notion, or Zapier?" icon="webhook">
+    Yes, on Pro.
+
+    Use [Webhooks](/webhooks) to send one signed JSON payload for each newly matched job. You can connect that endpoint to tools like Slack, Notion, Airtable, Zapier, Make, or your own app.
+  </Accordion>
+
+  <Accordion title="Why did my webhook not fire?" icon="circle-question">
+    Check these first:
+
+    1. Your account is on Pro.
+    2. The webhook is active in **Settings**.
+    3. The endpoint uses HTTPS and returns `2xx`.
+    4. The job was new, not part of the first scan.
+    5. The job matched filters when JobBeacon first saw it.
+
+    Review **Recent deliveries** in Settings for status and errors.
+  </Accordion>
+
+  <Accordion title="Are email settings and webhooks connected?" icon="bell">
+    No.
+
+    Email notification settings only control email. Webhooks have their own active switch in **Settings**.
+  </Accordion>
+
+  <Accordion title="Can I share a job with someone who does not have an account?" icon="share-nodes">
+    Yes.
+
+    Click the share icon on a job row. The recipient gets a public job preview and does not need a JobBeacon account.
+
+    See [Sharing jobs](/guides/sharing).
+  </Accordion>
+
+  <Accordion title="Why are share views lower than expected?" icon="eye">
+    JobBeacon filters many link previews and bot visits from share view counts.
+
+    Repeated views from the same visitor in a short window may also be counted once.
+  </Accordion>
+
+  <Accordion title="Can I watch LinkedIn or Indeed?" icon="magnifying-glass">
+    No.
+
+    JobBeacon watches company career pages and supported hiring platforms. It does not watch aggregators like LinkedIn or Indeed.
+  </Accordion>
+
+  <Accordion title="What if a company uses an unsupported careers page?" icon="building">
+    Try to find the company's actual job board link from the careers page and paste that URL.
+
+    If it still does not work, [email support](mailto:support@jobbeacon.app) with the URL.
   </Accordion>
 
   <Accordion title="Are there native mobile apps?" icon="mobile">
-    No — JobBeacon is a web app. It works on mobile browsers, and emails are designed to be readable on a phone.
-  </Accordion>
+    No.
 
-  <Accordion title="Can I share a job with someone who doesn't have an account?" icon="share-nodes">
-    Yes. Click the share icon on any job row and send the link. The recipient gets a public job preview without needing to sign up. See [Sharing jobs](/guides/sharing).
+    JobBeacon is a web app. It works in mobile browsers, and email is designed to be readable on a phone.
   </Accordion>
 
   <Accordion title="Will JobBeacon apply to jobs for me?" icon="paper-plane">
-    No. JobBeacon notifies you about new postings. The application is on you.
+    No.
+
+    JobBeacon helps you find new postings. You still apply on the company's own career site.
   </Accordion>
 
-  <Accordion title="What happens to my data if I delete my account?" icon="trash">
-    Everything tied to your account — watched companies, filters, job history, share links — is deleted. See [Account & billing](/guides/account-billing#deleting-your-account).
+  <Accordion title="What happens if I delete my account?" icon="trash">
+    JobBeacon deletes your watched companies, filters, job history, notification preferences, manual share links, and webhook settings.
+
+    See [Account & billing](/guides/account-billing#delete-your-account).
   </Accordion>
 
   <Accordion title="Is there a status page?" icon="signal-bars">
-    Yes — [status.jobbeacon.app](https://status.jobbeacon.app). It shows live uptime for the API and the polling job.
+    Yes.
+
+    Open [status.jobbeacon.app](https://status.jobbeacon.app) to check API and polling status.
   </Accordion>
 
   <Accordion title="How do I report a bug or request a feature?" icon="bug">
-    Email [support@jobbeacon.app](mailto:support@jobbeacon.app). Include the URL or company name involved if it's about detection or filtering.
+    Email [support@jobbeacon.app](mailto:support@jobbeacon.app).
+
+    Include the company name or URL if the issue is about detection, polling, filters, email, or webhook delivery.
   </Accordion>
 </AccordionGroup>

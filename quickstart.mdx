@@ -1,9 +1,9 @@
 ---
 title: "Quickstart"
-description: "Set up your first job alert in under 5 minutes."
+description: "Set up your first company watch in a few minutes."
 ---
 
-By the end of this guide you'll be watching at least one company and have notifications turned on. No setup, no install — everything happens in the browser.
+By the end of this guide, you will be watching at least one company and have email notifications ready.
 
 ## 1. Create your account
 
@@ -11,109 +11,142 @@ By the end of this guide you'll be watching at least one company and have notifi
   <Step title="Sign up">
     Open [jobbeacon.app](https://jobbeacon.app) and click **Get started**. You can sign up with email or Google.
   </Step>
-  <Step title="Verify your email">
-    JobBeacon sends notifications to the email on your account, so make sure you can receive mail there.
+  <Step title="Check your email">
+    JobBeacon sends email notifications to your account email unless you set a notification email override later.
   </Step>
 </Steps>
 
 <Tip>
-  The free plan is enough to try things out. You can upgrade later from **Settings → Billing**.
+  The Free plan is enough to try JobBeacon with up to 5 companies. You can upgrade later from **Settings**.
 </Tip>
 
 ## 2. Add your first company
 
-You only need a URL — JobBeacon figures out which job board the company uses.
+You only need a URL.
 
 <Steps>
-  <Step title="Open the app">
-    From the dashboard, click **Add company**.
+  <Step title="Open the dashboard">
+    From the app, click **Add company**.
   </Step>
   <Step title="Paste a careers URL">
-    Anything works:
+    Use the company's careers page or a direct job board URL.
 
-    - The company's careers page (`https://vercel.com/careers`)
-    - A direct job board URL (`https://job-boards.greenhouse.io/acmecorp`, `https://jobs.lever.co/binance`, etc.)
+    Examples:
 
-    Click **Add**. JobBeacon detects the platform and starts an initial scan.
+    - `https://vercel.com/careers`
+    - `https://job-boards.greenhouse.io/acmecorp`
+    - `https://jobs.lever.co/acmecorp`
+    - `https://acmecorp.wd1.myworkdayjobs.com/Acme_Careers`
   </Step>
-  <Step title="Wait for the seed scan">
-    The first scan loads every job currently on the board. You'll see live progress. These existing jobs are marked as *seed* — you won't get emailed about them. Only roles posted *after* this scan count as new.
+  <Step title="Add optional filters">
+    Add keywords and locations now, or leave them blank and edit them later.
+  </Step>
+  <Step title="Click Add company">
+    JobBeacon detects the company and starts the first scan.
+  </Step>
+  <Step title="Wait for the scan">
+    The first scan imports jobs already on the company board. These jobs are marked as seed jobs. They can appear in your dashboard, but they do not send email or webhook delivery.
   </Step>
 </Steps>
 
 <Note>
-  Don't see your company show up? See [Supported platforms](/guides/supported-platforms) for what works and what doesn't, and what to do when detection fails.
+  If JobBeacon asks **Is this the right company?**, open the suggested career site, confirm the correct one, or choose **None of these**.
 </Note>
 
-## 3. Set up filters
+## 3. Review your dashboard
 
-Filters are optional, but without them you'll get notified about *every* new job at that company. For most users, that's a lot.
+After the first scan, JobBeacon takes you to the company page.
+
+Use the company page to:
+
+- Review matching jobs
+- Open original job postings
+- Share jobs
+- Edit filters
+- Mute email for that company
+
+Return to **Dashboard** to switch between **Companies** and **Jobs** views.
+
+See [Dashboard](/guides/dashboard) for details.
+
+## 4. Set useful filters
+
+Filters are optional. Without filters, every active job at that company matches.
+
+For most companies, add at least one keyword or location.
 
 <Steps>
   <Step title="Open the company page">
-    Click the company you just added.
+    Click the company from the dashboard.
   </Step>
-  <Step title="Add keywords">
-    Add words that should appear in the job title. Examples:
+  <Step title="Edit keywords">
+    Keywords match the job title.
 
-    - `backend`, `infrastructure`, `platform`
-    - `product designer`, `design system`
-    - `senior`, `staff`, `principal`
+    Examples:
 
-    Choose **Match any** (an OR — match if *any* keyword appears) or **Match all** (an AND — every keyword must appear).
+    - `backend`
+    - `infrastructure`
+    - `product designer`
+    - `senior`
   </Step>
-  <Step title="Add locations">
-    Add locations to filter by. Examples: `Remote`, `Berlin`, `New York`, `Taiwan`. Same any/all toggle as keywords.
+  <Step title="Edit locations">
+    Locations match the job location field.
 
-    Some boards (like Workday) don't always include real location strings. Toggle **Include unspecified locations** if you want those jobs to come through anyway.
+    Examples:
+
+    - `Remote`
+    - `Berlin`
+    - `New York`
+    - `Taiwan`
+  </Step>
+  <Step title="Choose any or all">
+    Choose **Any** when one value is enough. Choose **All** when every value must match.
+  </Step>
+  <Step title="Save changes">
+    Click **Save** in each filter section you change.
   </Step>
 </Steps>
 
-<Tip>
-  Filters are forgiving — `full-stack`, `full stack`, and `fullstack` all match each other. Capitalization doesn't matter.
-</Tip>
+See [Filters](/guides/filters) for examples and plan limits.
 
-## 4. Confirm notifications are on
+## 5. Confirm email notifications
 
 <Steps>
   <Step title="Open Settings">
-    Click your avatar → **Settings**.
+    Click your avatar, then click **Settings**.
   </Step>
-  <Step title="Check the global toggle">
-    The **Email notifications** switch at the top is your master kill-switch. Make sure it's on.
+  <Step title="Check Email Notifications">
+    Make sure the main **Email Notifications** switch is active.
   </Step>
-  <Step title="Check the per-company switches">
-    Below the global toggle you'll see every company you watch with its own switch. New companies are on by default.
+  <Step title="Check company switches">
+    Confirm the companies you care about are active.
+  </Step>
+  <Step title="Set a notification email if needed">
+    In **Notification Email**, enter an override if alerts should go somewhere other than your account email.
   </Step>
 </Steps>
 
-See [Notifications](/guides/notifications) for how the toggles interact and how to mute things temporarily.
+Free accounts receive at most one email per company per day. Pro accounts get immediate email when a matching job is found.
 
-## 5. Wait for the next scan
+## 6. Optional: set up webhooks on Pro
 
-JobBeacon checks every company on a regular cadence. When a new role matches your filters, you'll get an email like this:
+If you want matched jobs sent to another tool, use [Webhooks](/webhooks).
 
-> **New roles at Acme Corp**
-> – Senior Backend Engineer · Remote
-> – Staff Platform Engineer · Berlin
->
-> [View 2 new roles at Acme Corp →]
-
-That's it. You're done.
+Webhooks are Pro-only and separate from email notifications.
 
 ## What's next?
 
 <CardGroup cols={2}>
   <Card title="Add more companies" icon="building" href="/guides/adding-companies">
-    Most users watch 5–20 companies.
+    Build out your company watchlist.
   </Card>
-  <Card title="Tune your filters" icon="sliders" href="/guides/filters">
-    Learn the difference between *any* and *all* mode.
+  <Card title="Tune filters" icon="sliders" href="/guides/filters">
+    Reduce noise with better keywords and locations.
   </Card>
   <Card title="Share a job" icon="share-nodes" href="/guides/sharing">
-    Send a one-link preview to a friend.
+    Send a public preview or share image.
   </Card>
   <Card title="Read the FAQ" icon="circle-question" href="/guides/faq">
-    Common questions, answered.
+    Find answers to common questions.
   </Card>
 </CardGroup>

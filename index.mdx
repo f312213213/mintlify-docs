@@ -1,24 +1,36 @@
 ---
 title: "Welcome to JobBeacon"
-description: "Get notified the moment a job you actually want gets posted."
+description: "Get notified when companies post jobs that match your search."
 ---
 
-JobBeacon watches company career pages for you. Pick the companies you care about, tell us the roles and locations you want, and we'll email you shortly after a matching job goes live.
+JobBeacon watches company career pages for you. Add the companies you care about, set role and location filters, and get email when a matching job appears.
 
-No more refreshing 20 career pages on a Sunday night.
+Pro users can also send matched jobs to their own tools with outbound webhooks.
 
 <CardGroup cols={2}>
   <Card title="Quickstart" icon="rocket" href="/quickstart">
-    Get your first alert set up in under 5 minutes.
+    Set up your first watched company in a few minutes.
+  </Card>
+  <Card title="Dashboard" icon="table-columns" href="/guides/dashboard">
+    Review your watched companies and matched jobs.
   </Card>
   <Card title="Add a company" icon="plus" href="/guides/adding-companies">
-    Paste any careers URL — we'll figure out the rest.
+    Paste a careers URL and let JobBeacon detect the company.
   </Card>
-  <Card title="Set up filters" icon="filter" href="/guides/filters">
-    Match on keywords and locations the way you actually search.
+  <Card title="Filters" icon="filter" href="/guides/filters">
+    Match jobs by title keywords and locations.
   </Card>
-  <Card title="Manage notifications" icon="bell" href="/guides/notifications">
-    Mute companies, pause everything, or fine-tune per company.
+  <Card title="Email notifications" icon="bell" href="/guides/notifications">
+    Control global and per-company email.
+  </Card>
+  <Card title="Webhooks" icon="webhook" href="/webhooks">
+    Send matched jobs to automation tools on Pro.
+  </Card>
+  <Card title="Sharing jobs" icon="share-nodes" href="/guides/sharing">
+    Share job previews, images, and links.
+  </Card>
+  <Card title="Account & billing" icon="credit-card" href="/guides/account-billing">
+    Manage plans, billing, email, language, and account settings.
   </Card>
 </CardGroup>
 
@@ -26,36 +38,46 @@ No more refreshing 20 career pages on a Sunday night.
 
 <Steps>
   <Step title="Pick a company">
-    Paste a careers page URL. JobBeacon detects the job board automatically.
+    Paste a careers page URL or a direct job board URL. JobBeacon detects supported hiring platforms automatically when it can.
   </Step>
   <Step title="Set your filters">
-    Add keywords (like `senior backend` or `product designer`) and locations (like `Remote` or `Berlin`). Optional but recommended.
+    Add keywords like `backend` or `product designer`, and locations like `Remote`, `Berlin`, or `Taiwan`.
   </Step>
-  <Step title="We keep watch">
-    JobBeacon checks each company regularly. Existing jobs are seeded silently — only *new* postings count as new.
+  <Step title="JobBeacon keeps watch">
+    JobBeacon checks each company on a schedule. The first scan seeds existing jobs silently. Only jobs found after that can trigger delivery.
   </Step>
-  <Step title="You get an email">
-    When something matches, we send a single email with the new roles and a link to apply.
+  <Step title="You get the match">
+    Matching jobs appear in your dashboard. JobBeacon sends email, and Pro webhooks if you have enabled them.
   </Step>
 </Steps>
 
-## What makes JobBeacon different
+## What JobBeacon is for
+
+JobBeacon is best when you already know the companies you care about.
+
+It is not a broad job marketplace. It watches the sources you choose and tells you when those companies add roles that match your filters.
 
 <CardGroup cols={2}>
-  <Card title="No noise" icon="volume-xmark">
-    You only hear about *new* postings that match your filters — not every job on the board.
+  <Card title="Company-first tracking" icon="building">
+    Watch specific companies instead of relying on a feed.
   </Card>
-  <Card title="Works on most boards" icon="globe">
-    Greenhouse, Ashby, Lever, Workday, Eightfold, SmartRecruiters, and BambooHR — covering thousands of companies.
+  <Card title="Per-company filters" icon="sliders">
+    Use different keywords and locations for each company.
   </Card>
-  <Card title="One email per company" icon="envelope">
-    New roles at the same company are batched into one notification, not one email per job.
+  <Card title="Email by default" icon="envelope">
+    Get one email per company when matching jobs are found.
   </Card>
-  <Card title="Yours to share" icon="share-nodes">
-    Share any job with a single link — recipients see a preview without needing an account.
+  <Card title="Automation on Pro" icon="webhook">
+    Send signed webhook payloads for each matched job.
+  </Card>
+  <Card title="Supported hiring platforms" icon="globe">
+    JobBeacon watches many common company job boards, including Greenhouse, Workday, Ashby, Lever, and more.
+  </Card>
+  <Card title="Shareable job previews" icon="image">
+    Share public job pages, copy share images, and track manual share history.
   </Card>
 </CardGroup>
 
 <Card title="Ready to start?" icon="arrow-right" href="/quickstart" horizontal>
-  Walk through the 5-minute setup.
+  Walk through the first setup.
 </Card>
