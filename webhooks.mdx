@@ -37,7 +37,7 @@ If a job does not match your filters when JobBeacon first sees it, changing filt
     Keep the current **Payload version** unless an existing integration needs an older payload shape.
   </Step>
   <Step title="Add authentication if needed">
-    If your endpoint requires authentication, enter an **Auth header** value such as `Bearer your-token`.
+    If your endpoint requires API key authentication, enter a **Provider auth header** name such as `x-jobbeacon-apikey`.
   </Step>
   <Step title="Save the endpoint">
     Click **Save**. The endpoint must use HTTPS.
@@ -63,7 +63,7 @@ Your endpoint must:
 
 JobBeacon blocks localhost, private network addresses, and test-only hostnames.
 
-Use the **Auth header** field if your endpoint requires a static `Authorization` header.
+Use the **Provider auth header** field if your endpoint requires an API key in a custom header.
 
 ## Request headers
 
@@ -76,18 +76,20 @@ Each delivery includes these headers:
 | `JobBeacon-Event-Id` | The event ID, such as `evt_...` |
 | `JobBeacon-Timestamp` | Unix timestamp in seconds |
 | `JobBeacon-Signature` | HMAC signature, such as `v1=...` |
-| `JobBeacon-Webhook-Version` | `2026-06-12` |
+| `JobBeacon-Webhook-Version` | The selected payload version, such as `2026-06-15` |
 | `Idempotency-Key` | Stable dedupe key for the event |
 
 Use `JobBeacon-Event-Id` or `Idempotency-Key` to ignore duplicate deliveries.
 
-If you set an **Auth header**, JobBeacon also sends it as the `Authorization` header.
+If you set a **Provider auth header**, JobBeacon sends the signing secret as the value of that header.
 
-For example, an auth header value of `Bearer your-token` sends:
+For example, a provider auth header named `x-jobbeacon-apikey` sends:
 
 ```text
-Authorization: Bearer your-token
+x-jobbeacon-apikey: whsec_...
 ```
+
+JobBeacon only sends the provider auth header to the original endpoint origin. If your endpoint redirects to a different origin, the redirected request does not include that header.
 
 ## Verify the signature
 
@@ -131,13 +133,24 @@ export function verifyJobBeaconWebhook({
 
 Reject requests with an old `JobBeacon-Timestamp`. A 5-minute window is a common choice.
 
+## Payload versions
+
+Your webhook endpoint is pinned to one payload version. New deliveries and test deliveries use that version until you change **Payload version** in Settings.
+
+| Version | Status | Notes |
+| ------- | ------ | ----- |
+| `2026-06-15` | Current | Default for new webhook endpoints. |
+| `2026-06-12` | Legacy | Available for existing integrations that already use this version. |
+
+Both supported versions currently use the same fields. The selected version appears in the `api_version` payload field and the `JobBeacon-Webhook-Version` request header.
+
 ## `job.matched` payload
 
 ```json
 {
   "event": "job.matched",
   "event_id": "evt_abc123",
-  "api_version": "2026-06-12",
+  "api_version": "2026-06-15",
   "created_at": "2026-06-13T09:15:00.000Z",
   "dedupe_key": "job.matched:user_123:job_123",
   "job": {
@@ -165,22 +178,101 @@ Reject requests with an old `JobBeacon-Timestamp`. A 5-minute window is a common
 }
 ```
 
-The `api_version` field is the selected webhook payload version. It matches the `JobBeacon-Webhook-Version` request header.
+## `job.matched` fields
 
-The `share.url` is a public JobBeacon preview for the job. The image URLs are stable share images you can attach in tools that support previews.
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| `event` | string | Always `job.matched`. |
+| `event_id` | string | Unique ID for this webhook delivery. It also appears in the `JobBeacon-Event-Id` header. |
+| `api_version` | string | The selected payload version. It matches the `JobBeacon-Webhook-Version` header. |
+| `created_at` | string | Time JobBeacon created the payload, in ISO 8601 format. |
+| `dedupe_key` | string | Stable key for this matched job event. It also appears in the `Idempotency-Key` header. |
+| `job` | object | The matched job. |
+| `company` | object | The company that posted the job. |
+| `share` | object | Public JobBeacon share links and images for the job. |
+
+### `job` object
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| `id` | string | JobBeacon's ID for the job. |
+| `external_id` | string | The job ID from the company's careers system. |
+| `title` | string | Job title. |
+| `location` | string or null | Job location, if JobBeacon received one. |
+| `url` | string | Public URL for the job posting. |
+| `first_seen_at` | string or null | Time JobBeacon first saw the job, in ISO 8601 format. |
+| `last_seen_at` | string or null | Time JobBeacon last saw the job active, in ISO 8601 format. |
+| `is_active` | boolean | Whether JobBeacon currently sees the job as active. |
+
+### `company` object
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| `id` | string | JobBeacon's ID for the company on your watchlist. |
+| `name` | string | Company name. |
+| `slug` | string | JobBeacon's company slug. |
+
+### `share` object
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| `token` | string | Token for the public JobBeacon share page. |
+| `url` | string | Public JobBeacon preview page for the job. |
+| `image_url` | string | Stable Open Graph image URL for the share page. |
+| `twitter_image_url` | string | Stable Twitter image URL for the share page. |
+| `sharer_name` | string | Display name shown on the share page. |
+
+The image URLs are useful for tools that let you attach or preview images.
 
 ## Test payload
 
 Click **Send test** to queue a `webhook.test` event.
 
-The test payload uses the same shape as a matched job payload and includes:
+The test payload uses the same selected payload version as matched job deliveries.
 
 ```json
 {
   "event": "webhook.test",
-  "test": true
+  "event_id": "evt_abc123",
+  "api_version": "2026-06-15",
+  "created_at": "2026-06-13T09:15:00.000Z",
+  "dedupe_key": "webhook.test:user_123:delivery_123",
+  "test": true,
+  "job": {
+    "id": "job_test",
+    "external_id": "jobbeacon-test",
+    "title": "JobBeacon is hiring a Product Engineer",
+    "location": "Remote",
+    "url": "https://jobbeacon.app/careers/jobbeacon-test",
+    "first_seen_at": "2026-06-13T09:15:00.000Z",
+    "last_seen_at": "2026-06-13T09:15:00.000Z",
+    "is_active": true
+  },
+  "company": {
+    "id": "company_test",
+    "name": "JobBeacon",
+    "slug": "jobbeacon"
+  },
+  "share": {
+    "token": "jobbeacon-test",
+    "url": "https://jobbeacon.app/share/jobbeacon-test",
+    "image_url": "https://jobbeacon.app/share/jobbeacon-test/opengraph-image",
+    "twitter_image_url": "https://jobbeacon.app/share/jobbeacon-test/twitter-image",
+    "sharer_name": "JobBeacon"
+  }
 }
 ```
+
+## `webhook.test` fields
+
+The `webhook.test` payload includes the same fields as `job.matched`, plus:
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| `event` | string | Always `webhook.test`. |
+| `test` | boolean | Always `true` for test deliveries. |
+
+The `job`, `company`, and `share` objects contain test data. Use them to verify your endpoint, signature check, and field mapping before relying on live matched job deliveries.
 
 You can send one test per minute, up to 25 tests in 24 hours.
 
