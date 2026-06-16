@@ -33,6 +33,12 @@ If a job does not match your filters when JobBeacon first sees it, changing filt
   <Step title="Find Outbound Webhook">
     In **Outbound Webhook**, enter your **Endpoint URL**.
   </Step>
+  <Step title="Choose the payload version">
+    Keep the current **Payload version** unless an existing integration needs an older payload shape.
+  </Step>
+  <Step title="Add authentication if needed">
+    If your endpoint requires authentication, enter an **Auth header** value such as `Bearer your-token`.
+  </Step>
   <Step title="Save the endpoint">
     Click **Save**. The endpoint must use HTTPS.
   </Step>
@@ -57,6 +63,8 @@ Your endpoint must:
 
 JobBeacon blocks localhost, private network addresses, and test-only hostnames.
 
+Use the **Auth header** field if your endpoint requires a static `Authorization` header.
+
 ## Request headers
 
 Each delivery includes these headers:
@@ -72,6 +80,14 @@ Each delivery includes these headers:
 | `Idempotency-Key` | Stable dedupe key for the event |
 
 Use `JobBeacon-Event-Id` or `Idempotency-Key` to ignore duplicate deliveries.
+
+If you set an **Auth header**, JobBeacon also sends it as the `Authorization` header.
+
+For example, an auth header value of `Bearer your-token` sends:
+
+```text
+Authorization: Bearer your-token
+```
 
 ## Verify the signature
 
@@ -148,6 +164,8 @@ Reject requests with an old `JobBeacon-Timestamp`. A 5-minute window is a common
   }
 }
 ```
+
+The `api_version` field is the selected webhook payload version. It matches the `JobBeacon-Webhook-Version` request header.
 
 The `share.url` is a public JobBeacon preview for the job. The image URLs are stable share images you can attach in tools that support previews.
 
